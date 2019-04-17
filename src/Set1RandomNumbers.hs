@@ -69,3 +69,13 @@ repRandom (g:gs) s = (x : xs, s'')
   where
     (x, s') = g s
     (xs, s'') = repRandom gs s'
+
+-- 6. Threading the random number state
+genTwo :: Gen a -> (a -> Gen b) -> Gen b
+genTwo g f s = (x', s'')
+  where
+    (x, s') = g s
+    (x', s'') = f x s'
+
+mkGen :: a -> Gen a
+mkGen x s = (x, s)

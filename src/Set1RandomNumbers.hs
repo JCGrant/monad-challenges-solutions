@@ -39,3 +39,25 @@ randOdd = generalA (+ 1) $ generalA (* 2) rand
 
 randTen :: Gen Integer -- the output of rand * 10
 randTen = generalA (* 10) rand
+
+-- 4. Generalizing Random Pairs
+randPair :: Gen (Char, Integer)
+randPair s = ((c, i), s'')
+  where
+    (c, s') = randLetter s
+    (i, s'') = rand s'
+
+generalPair :: Gen a -> Gen b -> Gen (a, b)
+generalPair g1 g2 s = ((x, y), s'')
+  where
+    (x, s') = g1 s
+    (y, s'') = g2 s'
+
+generalB :: (a -> b -> c) -> Gen a -> Gen b -> Gen c
+generalB f g1 g2 s = (f x y, s'')
+  where
+    (x, s') = g1 s
+    (y, s'') = g2 s'
+
+generalPair2 :: Gen a -> Gen b -> Gen (a, b)
+generalPair2 = generalB (\x y -> (x, y))

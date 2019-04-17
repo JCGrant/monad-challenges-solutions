@@ -48,3 +48,19 @@ maximumMay xs = Just $ foldl1 max xs
 minimumMay :: Ord a => [a] -> Maybe a
 minimumMay [] = Nothing
 minimumMay xs = Just $ foldl1 min xs
+
+-- 3. Chains of Failing Computations
+queryGreek :: GreekData -> String -> Maybe Double
+queryGreek greekData key =
+  case lookupMay key greekData of
+    Nothing -> Nothing
+    Just xs ->
+      case tailMay xs of
+        Nothing -> Nothing
+        Just tl ->
+          case maximumMay tl of
+            Nothing -> Nothing
+            Just mx ->
+              case headMay xs of
+                Nothing -> Nothing
+                Just hd -> divMay (fromIntegral mx) (fromIntegral hd)

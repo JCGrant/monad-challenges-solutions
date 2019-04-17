@@ -61,3 +61,11 @@ generalB f g1 g2 s = (f x y, s'')
 
 generalPair2 :: Gen a -> Gen b -> Gen (a, b)
 generalPair2 = generalB (\x y -> (x, y))
+
+-- 5. Generalizing Lists of Generators
+repRandom :: [Gen a] -> Gen [a]
+repRandom [] s = ([], s)
+repRandom (g:gs) s = (x : xs, s'')
+  where
+    (x, s') = g s
+    (xs, s'') = repRandom gs s'

@@ -95,3 +95,30 @@ addSalaries2 salaryData name1 name2 =
 
 mkMaybe :: a -> Maybe a
 mkMaybe = Just
+
+-- 6. Tailprod
+tailProd :: Num a => [a] -> Maybe a
+tailProd xs = tailMay xs `link` \tl -> Just (product tl)
+
+tailSum :: Num a => [a] -> Maybe a
+tailSum xs = tailMay xs `link` \tl -> Just (sum tl)
+
+transMaybe :: (a -> b) -> Maybe a -> Maybe b
+transMaybe _ Nothing = Nothing
+transMaybe f (Just x) = Just (f x)
+
+tailProd2 :: Num a => [a] -> Maybe a
+tailProd2 = transMaybe product . tailMay
+
+tailSum2 :: Num a => [a] -> Maybe a
+tailSum2 = transMaybe sum . tailMay
+
+combine :: Maybe (Maybe a) -> Maybe a
+combine Nothing = Nothing
+combine (Just x) = x
+
+tailMax :: Ord a => [a] -> Maybe a
+tailMax = combine . transMaybe maximumMay . tailMay
+
+tailMin :: Ord a => [a] -> Maybe a
+tailMin = combine . transMaybe minimumMay . tailMay

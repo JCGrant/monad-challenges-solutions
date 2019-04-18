@@ -79,3 +79,19 @@ queryGreek2 greekData key =
     tailMay xs `link` \tl ->
       maximumMay tl `link` \mx ->
         headMay xs `link` \hd -> divMay (fromIntegral mx) (fromIntegral hd)
+
+-- 5. Chaining variations
+addSalaries :: [(String, Integer)] -> String -> String -> Maybe Integer
+addSalaries salaryData name1 name2 =
+  lookupMay name1 salaryData `link` \s1 ->
+    lookupMay name2 salaryData `link` \s2 -> mkMaybe (s1 + s2)
+
+yLink :: (a -> b -> c) -> Maybe a -> Maybe b -> Maybe c
+yLink f x y = x `link` \x' -> y `link` \y' -> mkMaybe (f x' y')
+
+addSalaries2 :: [(String, Integer)] -> String -> String -> Maybe Integer
+addSalaries2 salaryData name1 name2 =
+  yLink (+) (lookupMay name1 salaryData) (lookupMay name2 salaryData)
+
+mkMaybe :: a -> Maybe a
+mkMaybe = Just

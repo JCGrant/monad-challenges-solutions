@@ -7,11 +7,7 @@ import MCPrelude
 
 -- 1. Generating combinations
 allPairs :: [a] -> [b] -> [(a, b)]
-allPairs xs ys = allPairs' xs ys
-  where
-    allPairs' [] _ = []
-    allPairs' (x:xs) [] = allPairs' xs ys
-    allPairs' allX@(x:_) (y:ys) = (x, y) : allPairs' allX ys
+allPairs = allCombs (,)
 
 -- 2. Poker hands
 data Card =
@@ -22,8 +18,12 @@ instance Show Card where
   show (Card r s) = show r ++ s
 
 allCards :: [Int] -> [String] -> [Card]
-allCards xs ys = allCards' xs ys
+allCards = allCombs Card
+
+-- 3. Generalizing pairs and cards
+allCombs :: (a -> b -> c) -> [a] -> [b] -> [c]
+allCombs f xs ys = allCombs' xs ys
   where
-    allCards' [] _ = []
-    allCards' (x:xs) [] = allCards' xs ys
-    allCards' allX@(x:_) (y:ys) = Card x y : allCards' allX ys
+    allCombs' [] _ = []
+    allCombs' (x:xs) [] = allCombs' xs ys
+    allCombs' allX@(x:_) (y:ys) = f x y : allCombs' allX ys

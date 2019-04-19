@@ -79,3 +79,13 @@ genTwo g f s = (x', s'')
 
 mkGen :: a -> Gen a
 mkGen x s = (x, s)
+
+-- Set 4: Common Abstraction
+-- 2. A Missed Generalization
+generalB2 :: (a -> b -> c) -> Gen a -> Gen b -> Gen c
+generalB2 f g1 g2 = g1 `genTwo` \x -> g2 `genTwo` \y -> mkGen (f x y)
+
+repRandom2 :: [Gen a] -> Gen [a]
+repRandom2 [] = mkGen []
+repRandom2 (g:gs) =
+  g `genTwo` \x -> repRandom2 gs `genTwo` \xs -> mkGen (x : xs)

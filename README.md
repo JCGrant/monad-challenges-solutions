@@ -1,19 +1,29 @@
-# The Monad Challenges
+# The Monad Challenges Solutions
 
-The goal of this project is to provide a roadmap for hands-on exploration and
-experimentation with monads. It is still rough and there is a fair amount
-content that could be added.
+These are my solutions to The Monad Challenges:
 
-## Contribution Guide
+Website: https://mightybyte.github.io/monad-challenges/
 
-The site is a static site generated with
-[Hakyll](http://hackage.haskell.org/package/hakyll). To make edits to the text
-or to add new sets/exercises, you should edit the markdown files in
-[hakyll/pages](https://github.com/mightybyte/monad-challenges/tree/gh-pages/hakyll/pages).
-The hakyll site generator is defined in the cabal file.  After you build it,
-make sure the regen.sh script points to the correct location and run the
-script.
+GitHub: https://github.com/mightybyte/monad-challenges.git
 
-If you want to contribute, but don't know what to do, check out the [open
-issues](https://github.com/mightybyte/monad-challenges/issues) and see if you
-can help with anything there.
+**NOTE: If you've come here to peek at the solutions I would strongly recommend that you turn away and ponder upon the problem a little longer. However, if you are truly stuck and need a small nudge, then feel free to take a cheeky glance.**
+
+My solutions are in the /src directory.
+
+The order of the solutions are:
+  
+  - Set 1
+    - Set1RandomNumbers.hs
+  - Set 2
+    - Set2FailingComputations.hs
+  - Set 3
+    - Set3Combinations.hs
+  - Set 4
+    - Set4CommonAbstractions.hs
+    - Set1RandomNumbersWithMonads.hs
+    - Set2FailingComputationsWithMonads.hs
+    - Set3CombinationsWithMonads.hs
+  - Set 5
+    - Set5DoNotation.hs
+
+There are a couple of solutions so Set 4 and Set 5 which in inside other files. These are labelled clearly.

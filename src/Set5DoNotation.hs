@@ -13,6 +13,7 @@ import Set2FailingComputations hiding
   , tailProd
   , tailSum
   )
+import Set3Combinations hiding (allCards, allCombs3, allPairs)
 import Set4CommonAbstractions hiding (Monad, return)
 
 -- 2. Do Notation – operators
@@ -80,3 +81,36 @@ tailMax :: Ord a => [a] -> Maybe a
 tailMax xs = do
   tl <- tailMay xs
   minimumMay tl
+
+-- 5. Do Notation – Set 3
+instance Monad [] where
+  xs >>= f = concatMap f xs
+  return x = [x]
+
+allPairs :: [a] -> [b] -> [(a, b)]
+allPairs xs ys = do
+  x <- xs
+  y <- ys
+  return (x, y)
+
+allPairs2 :: [a] -> [b] -> [(a, b)]
+allPairs2 xs ys = [(x, y) | x <- xs, y <- ys]
+
+allCards :: [Int] -> [String] -> [Card]
+allCards xs ys = do
+  x <- xs
+  y <- ys
+  return $ Card x y
+
+allCards2 :: [Int] -> [String] -> [Card]
+allCards2 xs ys = [Card x y | x <- xs, y <- ys]
+
+allCombs3 :: (a -> b -> c -> d) -> [a] -> [b] -> [c] -> [d]
+allCombs3 f xs ys zs = do
+  x <- xs
+  y <- ys
+  z <- zs
+  return $ f x y z
+
+allCombs3_2 :: (a -> b -> c -> d) -> [a] -> [b] -> [c] -> [d]
+allCombs3_2 f xs ys zs = [f x y z | x <- xs, y <- ys, z <- zs]
